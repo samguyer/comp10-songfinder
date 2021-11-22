@@ -25,6 +25,7 @@ def build_title_index(all_songs):
     print("Problem 3 not implemented")
     return {}
 
+
 # -- Lookup a song in the title index
 #    Given a song title and a dictionary mapping song titles to songs
 #    lookup and return the corresponding song, or return None
@@ -33,12 +34,14 @@ def lookup_title_index(title, song_index):
     print("Problem 3 not implemented")
     return None
 
+
 # -- Build an index of songs by lyrics
 #    Make and return a dictionary that maps a word (the key) to
 #    the list of songs whose lyrics contain that word.
 def build_word_index(all_songs):
     print("Problem 4 not implemented")
     return {}
+
 
 # -- Lookup songs with lyrics using index
 #    Given a word and a dictionary mapping words to lists of songs
@@ -48,6 +51,7 @@ def lookup_word_index(word, word_index):
     print("Problem 4 not implemented")
     return []
 
+
 # -- Lookup songs with two words in their lyrics
 #    Given two word and a dictionary mapping words to lists of songs
 #    return a list of songs that contain both words.
@@ -56,17 +60,18 @@ def lookup_2word_index(word1, word2, word_index):
     print("Problem 5 not implemented")
     return []
 
+
 # -- Print song info
 #    Print out the artist, title, and lyrics
 def print_song(song):
     print("Problem 1(b) not implemented")
+
 
 # -- Print song with context
 #    Print out the artist and title, and just the lines
 #    of lyrics that have the given word
 def print_song_context(word, song):
     print("Problem 2(b) not implemented")
-
 
 
 # -- Read the song file and return a list of songs. Each song
@@ -101,18 +106,23 @@ print("Read file...")
 t1 = time.time()
 allsongs = read_song_file((filename))
 t2 = time.time()
-print("..done in " + str(t2-t1) + " seconds")
+print("...done in {:.8f} seconds".format(t2 - t1))
 print("Found " + str(len(allsongs)) + " songs")
+
+# -- Give the user the option of searching a smaller set
+a = input("Would you like to limit the number of songs? (enter yes or no)")
+if a.lower() == 'yes':
+    num = int(input("Enter number of songs (1-{}): ".format(len(allsongs))))
+    num = min(num, len(allsongs))
+    allsongs = allsongs[1:num]
 
 # -- Build the indexes here
 print("Build indexes...")
 t1 = time.time()
-
 title_index = build_title_index(allsongs)
 word_index = build_word_index(allsongs)
-
 t2 = time.time()
-print("..done in " + str(t2-t1) + " seconds")
+print("Time: {:.8f} seconds".format(t2 - t1))
 
 done = False
 while not done:
@@ -130,7 +140,7 @@ while not done:
         t1 = time.time()
         results = search_by_title_slow(t, allsongs)
         t2 = time.time()
-        print("Done in " + str(t2 - t1) + " seconds")
+        print("Time: {:.8f} seconds".format(t2 - t1))
         for s in results:
             print_song(s)
     elif choice == 2:
@@ -138,7 +148,7 @@ while not done:
         t1 = time.time()
         results = search_lyrics_slow(w, allsongs)
         t2 = time.time()
-        print("Done in " + str(t2 - t1) + " seconds")
+        print("Time: {:.8f} seconds".format(t2 - t1))
         for s in results:
             print_song_context(w, s)
     elif choice == 3:
@@ -150,7 +160,7 @@ while not done:
             print_song(song)
         else:
             print('Not found')
-        print("Done in " + str(t2 - t1) + " seconds")
+        print("Time: {:.8f} seconds".format(t2 - t1))
     elif choice == 4:
         w = input('Enter a word: ')
         t1 = time.time()
@@ -158,7 +168,7 @@ while not done:
         t2 = time.time()
         for s in results:
             print_song_context(w, s)
-        print("Done in " + str(t2 - t1) + " seconds")
+        print("Time: {:.8f} seconds".format(t2 - t1))
     elif choice == 5:
         w1 = input('Enter first word: ')
         w2 = input('Enter second word: ')
@@ -167,6 +177,6 @@ while not done:
         t2 = time.time()
         for s in results:
             print_song_context(w, s)
-        print("Done in " + str(t2 - t1) + " seconds")
+        print("Time: {:.8f} seconds".format(t2 - t1))
     else:
         done = True
